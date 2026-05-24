@@ -50,13 +50,13 @@ The platform is built with a futuristic UI inspired by AI and cyberpunk aestheti
 
 ---
 
-## 🤝 Contributing
+## 🤝 Collaborators
 
-Contributions, suggestions, and improvements are welcome.
+| Profile | Username |
+|---------|----------|
+| <img src="https://github.com/mohammedrehan143.png" width="100" style="border-radius:50%"> | **[@mohammedrehan143](https://github.com/mohammedrehan143)** |
 
-1. Fork the repository
-2. Create your feature branch
-
+---
 ```bash
 git checkout -b feature-name
 
