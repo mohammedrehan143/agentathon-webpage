@@ -59,6 +59,7 @@
       background: rgba(255, 255, 255, 0.94);
       box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.04);
       min-height: 100vh;
+      overflow-x: hidden;
     }
 
     .topbar {
@@ -70,6 +71,8 @@
       padding: 22px 56px;
       background: rgba(255, 255, 255, 0.96);
       border-bottom: 1px solid var(--line);
+      overflow-x: auto;
+      overflow-y: hidden;
     }
 
     .brand-cluster,
@@ -77,6 +80,7 @@
       display: flex;
       align-items: center;
       gap: 18px;
+      flex-shrink: 0;
     }
 
     .seal {
@@ -251,12 +255,16 @@
       backdrop-filter: blur(18px);
       border-bottom: 1px solid rgba(0, 0, 0, 0.08);
       box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+      overflow-x: auto;
+      overflow-y: hidden;
+      min-width: 0;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
       gap: clamp(18px, 4vw, 76px);
+      flex-shrink: 0;
     }
 
     .nav a {
@@ -303,6 +311,7 @@
       box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18);
       transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
       cursor: pointer;
+      flex-shrink: 0;
     }
 
     .nav .register-btn {
