@@ -41,6 +41,24 @@ The platform is built with a futuristic UI inspired by AI and cyberpunk aestheti
 - Vercel Deployment
 
 ---
+## 👨‍💻 Collaborator
+
+### Mohammed Rehan
+- GitHub: :contentReference[oaicite:0]{index=0}
+- Frontend Developer & UI Designer
+- Worked on the Agentathon website design, animations, and AI-themed interface development.
+
+---
+
+## 🤝 Contributing
+
+Contributions, suggestions, and improvements are welcome.
+
+1. Fork the repository
+2. Create your feature branch
+
+```bash
+git checkout -b feature-name
 
 ## 🚀 Getting Started
 
