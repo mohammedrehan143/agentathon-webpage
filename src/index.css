@@ -391,11 +391,9 @@ body::before{
 .speaker-img-wrap img{
   width:100%;height:100%;object-fit:cover;object-position:top;
   display:block;
-  mix-blend-mode:luminosity;opacity:0.85;
   transition:all 0.6s var(--ease);
 }
 .speaker-section:hover .speaker-img-wrap img{
-  mix-blend-mode:normal;opacity:1;
   transform:scale(1.05);
 }
 .speaker-img-placeholder{
@@ -434,7 +432,148 @@ body::before{
 .chip::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--pink);}
 
 /* ─────────── PROBLEM STATEMENTS ─────────── */
-.ps-section{margin-bottom:64px;}
+.ps-section{margin-bottom:64px; position: relative;}
+
+.ps-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(8, 8, 16, 0.6);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  animation: fadeIn 0.3s ease;
+}
+
+.ps-selection-card {
+  background: #fff;
+  width: 100%;
+  max-width: 480px;
+  padding: 40px;
+  border-radius: 24px;
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  animation: slideInUp 0.4s var(--ease);
+}
+
+@keyframes slideInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.ps-modal-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: all 0.2s;
+}
+.ps-modal-close:hover { background: #f5f5f5; color: var(--pink); border-color: var(--pink); }
+
+.ps-modal-title {
+  font: 'Bebas Neue', sans-serif;
+  font-size: 32px;
+  margin-bottom: 24px;
+  color: var(--ink);
+  text-align: center;
+}
+
+.ps-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.ps-input-group label {
+  font: 700 11px 'Montserrat', sans-serif;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.ps-input {
+  padding: 14px 18px;
+  border-radius: var(--r-btn);
+  border: 1px solid var(--line);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  transition: border-color 0.3s;
+  width: 100%;
+}
+
+.ps-input:focus {
+  outline: none;
+  border-color: var(--pink);
+  box-shadow: 0 0 0 4px rgba(234, 22, 141, 0.1);
+}
+
+.ps-select {
+  padding: 14px 18px;
+  border-radius: var(--r-btn);
+  border: 1px solid var(--line);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  background: #fff;
+  cursor: pointer;
+  width: 100%;
+}
+
+.btn-select {
+  padding: 16px 24px;
+  background: var(--ink);
+  color: #fff;
+  border: none;
+  border-radius: var(--r-btn);
+  font: 800 13px 'Montserrat', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-select:hover:not(:disabled) {
+  background: var(--pink);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(234, 22, 141, 0.25);
+}
+
+.btn-select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-export {
+  padding: 12px 24px;
+  background: #1d6f42; /* Excel Green */
+  color: #fff;
+  border: none;
+  border-radius: var(--r-btn);
+  font: 700 11px 'Montserrat', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-export:hover {
+  background: #145231;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(29, 111, 66, 0.3);
+}
+
 .ps-container {
   display: flex;
   flex-direction: column;
@@ -482,10 +621,36 @@ body::before{
 }
 .ps-tab-title {
   font: 'Bebas Neue', sans-serif;
-  font-size: 22px;
+  font-size: 28px;
   letter-spacing: 0.5px;
   line-height: 1.2;
 }
+
+.ps-count-wrap {
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+  margin-top: 4px;
+}
+
+.ps-count-current {
+  font: 800 18px 'Montserrat', sans-serif;
+  color: var(--pink);
+}
+
+.ps-tab-btn.active .ps-count-current {
+  color: #fff;
+}
+
+.ps-count-total {
+  font: 600 12px 'Montserrat', sans-serif;
+  color: var(--muted);
+}
+
+.ps-tab-btn.active .ps-count-total {
+  color: rgba(255, 255, 255, 0.6);
+}
+
 .ps-display-card {
   background: #fff;
   border: 1px solid var(--line);
@@ -494,6 +659,61 @@ body::before{
   box-shadow: var(--shadow-md);
   animation: fadeIn 0.4s var(--ease) both;
 }
+
+.ps-teams-section {
+  margin-top: 40px;
+  padding-top: 32px;
+  border-top: 1px solid var(--line);
+}
+
+.ps-teams-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.ps-team-name {
+  background: #f8f8f8;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  text-align: center;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ps-team-name.filled {
+  background: rgba(234, 22, 141, 0.05);
+  color: var(--pink);
+  border-color: rgba(234, 22, 141, 0.2);
+}
+
+.ps-reference {
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ps-ref-link {
+  color: var(--cyan);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ps-ref-link:hover {
+  text-decoration: underline;
+}
+
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
@@ -725,7 +945,7 @@ footer{
   .footer-copy{grid-column:1/-1;text-align:left;}
 }
 
-@media(max-width:768px){
+@media(max-width: 768px){
   /* minimal mobile topbar */
   .topbar{
     padding:12px 16px;
@@ -770,6 +990,20 @@ footer{
   .prize-amount{font-size:clamp(40px, 10vw, 60px) !important;}
   .cs-title{font-size:clamp(40px, 12vw, 70px) !important;}
   .cd-num{font-size:clamp(28px, 8vw, 42px) !important;}
+
+  /* Problem Statements Mobile */
+  .ps-selection-card {
+    padding: 24px;
+  }
+  .ps-input-group {
+    min-width: unset;
+  }
+  .ps-teams-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .ps-tab-title {
+    font-size: 24px;
+  }
 }
 
 @media(max-width:480px){
