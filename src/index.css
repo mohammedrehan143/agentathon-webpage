@@ -435,53 +435,132 @@ body::before{
 
 /* ─────────── PROBLEM STATEMENTS ─────────── */
 .ps-section{margin-bottom:64px;}
-.coming-soon-box{
-  border-radius:24px;
-  background:#fff;
-  border:1px solid var(--line);
-  padding:80px 48px;text-align:center;
-  position:relative;overflow:hidden;
-  box-shadow:var(--shadow-md);
+.ps-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
-.coming-soon-box::before{
-  content:'';position:absolute;inset:0;
-  background-image:radial-gradient(circle,rgba(234,22,141,0.04) 1px,transparent 1px);
-  background-size:30px 30px;
-  mask-image:radial-gradient(ellipse 60% 60% at 50% 50%,black,transparent);
+.ps-tabs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
 }
-.cs-lock{
-  width:88px;height:88px;margin:0 auto 28px;
-  background:rgba(234,22,141,0.06);border-radius:50%;
-  display:grid;place-items:center;color:var(--pink);
-  border:1.5px solid rgba(234,22,141,0.15);
-  box-shadow:0 8px 24px rgba(234,22,141,0.12);
-  animation:csPulse 2s infinite;
-  position:relative;z-index:1;
+.ps-tab-btn {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  padding: 24px 16px;
+  cursor: pointer;
+  transition: all 0.3s var(--ease);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
 }
-.cs-lock svg{width:44px;height:48px;}
-.cs-title{
-  font:'Bebas Neue',sans-serif;font-size:clamp(64px,10vw,120px);letter-spacing:4px;
-  background:linear-gradient(135deg,var(--pink),var(--purple));
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-  filter:drop-shadow(0 4px 12px rgba(234,22,141,0.15));
-  position:relative;z-index:1;
+.ps-tab-btn:hover {
+  transform: translateY(-4px);
+  border-color: var(--pink);
+  box-shadow: var(--shadow-md);
 }
-.cs-sub{
-  font-size:17px;color:var(--muted);margin-top:16px;line-height:1.6;
-  font-weight:500;position:relative;z-index:1;
+.ps-tab-btn.active {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #fff;
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.15);
 }
-.cs-loader{
-  width:200px;height:4px;background:rgba(0,0,0,0.05);
-  border-radius:99px;margin:32px auto 0;overflow:hidden;
-  position:relative;z-index:1;
+.ps-tab-number {
+  font: 700 12px 'Montserrat', sans-serif;
+  letter-spacing: 2px;
+  color: var(--pink);
+  opacity: 0.8;
 }
-.cs-loader-bar{
-  width:40%;height:100%;background:var(--pink);
-  box-shadow:0 0 10px rgba(234,22,141,0.4);
-  animation:csLoad 3s ease-in-out infinite;
+.ps-tab-btn.active .ps-tab-number {
+  color: #fff;
 }
-@keyframes csPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.1);opacity:0.8}}
-@keyframes csLoad{0%{transform:translateX(-100%)}100%{transform:translateX(250%)}}
+.ps-tab-title {
+  font: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  letter-spacing: 0.5px;
+  line-height: 1.2;
+}
+.ps-display-card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  padding: 48px;
+  box-shadow: var(--shadow-md);
+  animation: fadeIn 0.4s var(--ease) both;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.ps-display-title {
+  font: 'Bebas Neue', sans-serif;
+  font-size: clamp(32px, 4vw, 48px);
+  letter-spacing: 0.5px;
+  color: var(--ink);
+  margin-bottom: 32px;
+  line-height: 1.1;
+  background: linear-gradient(135deg, var(--ink), var(--purple));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.ps-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+.ps-info-block {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.ps-block-label {
+  font: 700 12px 'Montserrat', sans-serif;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--pink);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.ps-block-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(234, 22, 141, 0.2);
+}
+.ps-block-text {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #333;
+}
+.ps-full-width {
+  grid-column: 1 / -1;
+}
+
+@media(max-width: 992px) {
+  .ps-tabs {
+    grid-template-columns: 1fr 1fr;
+  }
+  .ps-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+@media(max-width: 580px) {
+  .ps-tabs {
+    grid-template-columns: 1fr;
+  }
+  .ps-display-card {
+    padding: 32px 24px;
+  }
+}
 
 /* ─────────── EVENT DETAILS ─────────── */
 .details-section{margin-bottom:64px;}
