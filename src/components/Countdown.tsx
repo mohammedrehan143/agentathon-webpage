@@ -1,46 +1,41 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 const Countdown: React.FC = () => {
-  const target = new Date('2026-05-29T09:00:00+05:30').getTime();
-  const [timeLeft, setTimeLeft] = useState({
-    days: '00',
-    hours: '00',
-    minutes: '00',
-    seconds: '00',
-  });
-
-  const pad = (n: number) => String(n).padStart(2, '0');
-
-  useEffect(() => {
-    const tick = () => {
-      const d = Math.max(0, target - Date.now());
-      setTimeLeft({
-        days: pad(Math.floor(d / 86400000)),
-        hours: pad(Math.floor((d % 86400000) / 3600000)),
-        minutes: pad(Math.floor((d % 3600000) / 60000)),
-        seconds: pad(Math.floor((d % 60000) / 1000)),
-      });
-    };
-
-    tick();
-    const timer = setInterval(tick, 1000);
-    return () => clearInterval(timer);
-  }, [target]);
-
   return (
-    <div className="countdown-wrap reveal" id="countdown-section">
-      <div className="cd-copy">
-        <div className="cd-kicker">Countdown to Build Day</div>
-        <div className="cd-title">29 May 2026<br />9:00 AM</div>
-        <p className="cd-desc">The hackathon clock is ticking. Bring your team, sharpen your idea, and get ready to deploy intelligence.</p>
+    <section className="finale-section reveal">
+      <div className="finale-card">
+        <div className="celebration-glow"></div>
+        <div className="finale-content">
+          <div className="finale-badge">
+            <span className="badge-icon">✨</span>
+            Mission Accomplished
+          </div>
+          <h2 className="finale-title">
+            AGENTATHON 2026<br />
+            <span className="gradient-text">SUCCESSFULLY CONCLUDED</span>
+          </h2>
+          <div className="finale-divider"></div>
+          <p className="finale-message">
+            Intelligence has been deployed. We are incredibly proud of all the innovators 
+            who joined us to build the future of AI agents.
+          </p>
+          <div className="finale-stats">
+            <div className="stat-item">
+              <span className="stat-val">2</span>
+              <span className="stat-lab">Days</span>
+            </div>
+            <div className="stat-item">
+              <span className="stat-val">48</span>
+              <span className="stat-lab">Hours</span>
+            </div>
+            <div className="stat-item">
+              <span className="stat-val">∞</span>
+              <span className="stat-lab">Innovation</span>
+            </div>
+          </div>
+        </div>
       </div>
-      <div className="cd-grid" aria-live="polite">
-        <div className="cd-box"><strong className="cd-num" id="days">{timeLeft.days}</strong><span className="cd-label">Days</span></div>
-        <div className="cd-box"><strong className="cd-num" id="hours">{timeLeft.hours}</strong><span className="cd-label">Hours</span></div>
-        <div className="cd-box"><strong className="cd-num" id="minutes">{timeLeft.minutes}</strong><span className="cd-label">Mins</span></div>
-        <div className="cd-box"><strong className="cd-num" id="seconds">{timeLeft.seconds}</strong><span className="cd-label">Secs</span></div>
-      </div>
-    </div>
+    </section>
   );
 };
 
