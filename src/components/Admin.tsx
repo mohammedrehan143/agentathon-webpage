@@ -9,6 +9,14 @@ interface TeamSelection {
   created_at: string;
 }
 
+// Added an interface for the expected database row to avoid implicit 'any' types
+interface DatabaseRow {
+  team_name: string;
+  email: string;
+  ps_id: number;
+  created_at: string;
+}
+
 const Admin: React.FC = () => {
   const [password, setPassword] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -36,18 +44,19 @@ const Admin: React.FC = () => {
         .order('created_at', { ascending: false });
 
       if (error) throw error;
-      setSelections(data?.map(row => ({
+      setSelections((data as DatabaseRow[])?.map((row: DatabaseRow) => ({
         name: row.team_name,
         email: row.email,
         ps_id: row.ps_id,
         created_at: row.created_at
       })) || []);
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Error fetching data details:', err);
-      if (err.message) console.error('Message:', err.message);
-      if (err.details) console.error('Details:', err.details);
-      if (err.hint) console.error('Hint:', err.hint);
-      alert('Failed to load data: ' + (err.message || 'Unknown error'));
+      const errorObj = err as Record<string, any>;
+      if (errorObj.message) console.error('Message:', errorObj.message);
+      if (errorObj.details) console.error('Details:', errorObj.details);
+      if (errorObj.hint) console.error('Hint:', errorObj.hint);
+      alert('Failed to load data: ' + (errorObj.message || 'Unknown error'));
     } finally {
       setIsLoading(false);
     }
